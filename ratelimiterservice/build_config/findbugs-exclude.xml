@@ -1,0 +1,38 @@
+<FindBugsFilter>
+    <!-- For documentation on this file's format,
+              see http://git.eclipse.org/c/tcf/org.eclipse.tcf.git/plain/admin/findbugs-exclude.xml
+
+    For a description of the error codes,
+    see http://findbugs.sourceforge.net/bugDescriptions.html
+    -->
+
+    <!--
+    Use of mutable objects (java.util.Date) in our auto generated model trips up the findbugs scanner. This
+    doesn't really matter as we are using this to pass information across the wire.
+     -->
+    <Match>
+        <Or>
+            <Bug pattern="EI_EXPOSE_REP"/>
+            <Bug pattern="EI_EXPOSE_REP2"/>
+        </Or>
+        <Or>
+            <Package name="~com.oracle.pic.db.metadata.api.*" />
+            <Package name="~com.oracle.pic.db.metadata.model.*" />
+        </Or>
+    </Match>
+
+    <!-- It's an exception logger, we don't care about this pattern -->
+    <Match>
+        <Bug pattern="SLF4J_FORMAT_SHOULD_BE_CONST"/>
+        <Class name="com.oracle.pic.db.metadata.utils.RenderableExceptionCatchAllMapper"/>
+    </Match>
+
+    <!-- See comment at the place where the injector variable is written -->
+    <Match>
+        <Class name="com.oracle.pic.db.metadata.DbMetadataService" />
+        <Or>
+            <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+            <Bug pattern="LI_LAZY_INIT_UPDATE_STATIC" />
+        </Or>
+    </Match>
+</FindBugsFilter>

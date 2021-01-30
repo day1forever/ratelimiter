@@ -1,0 +1,9 @@
+.settings
+.project
+.classpath
+.DS_Store
+*.iml
+target/
+abandoned/
+.idea/
+.CLOSURE.CACHE
