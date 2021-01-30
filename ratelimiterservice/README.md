@@ -20,6 +20,7 @@
 ## How to run
 
 Run run.sh to run service locally, or have it invoked inside docker in production environment
+if there is no config specified, it will use default config(assuming running locally)
 ```bash
 ./run.sh
 ```
@@ -61,7 +62,15 @@ curl http://localhost:20080/v20210131/throttle/userA/getUserInfo
 #true
 ```
 
+### registerApiName
+whitelist an apiName, after whitelisting service can recogniza this apiName
+```bash
+curl --header "Content-Type: application/json" --request POST --header 'apiName: getUserInfo' http://localhost:20080/v20210131/apiName
+```
+Response: http 200
+
 ## Future Work
 * For real production usage, we need a Redis cluster in terms of redundancy.
+* Implement checking whitelisted apiName in API: createLimitInfo and throttleRequest
 * Adding Authentication/Authorization module
 * Adding more critical log/metrics
